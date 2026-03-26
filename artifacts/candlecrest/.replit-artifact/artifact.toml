@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "CandleCrest"
+version = "1.0.0"
+id = "artifacts/candlecrest"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 24429
+
+[services.development]
+run = "pnpm --filter @workspace/candlecrest run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/candlecrest", "run", "build" ]
+publicDir = "artifacts/candlecrest/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24429"
+BASE_PATH = "/"
